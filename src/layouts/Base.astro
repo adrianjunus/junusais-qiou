@@ -1,0 +1,29 @@
+---
+import Nav from '../components/Nav.astro';
+import '../styles/design-system.css';
+import '../styles/site.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "Junus's personal site — writing, portfolio, and turtle cam." } =
+  Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <Nav currentPath={Astro.url.pathname} />
+    <main class="site-main">
+      <slot />
+    </main>
+  </body>
+</html>

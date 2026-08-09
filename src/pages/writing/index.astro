@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const dateFormatter = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+});
+---
+
+<Base title="Writing — Junusais quoi" description="Life stuff. What I'm up to, or thinking about.">
+  <div class="page-head">
+    <h1>Writing</h1>
+    <p>Life stuff. What I'm up to, or thinking about.</p>
+  </div>
+
+  <div class="post-list">
+    {posts.map((post) => (
+      <article class="post-list-row">
+        <div class="post-meta">
+          <span class="post-date">{dateFormatter.format(post.data.date)}</span>
+          <span class="tag tag-outline">{post.data.tag}</span>
+        </div>
+        <h2 class="post-title">
+          <a href={`/writing/${post.slug}`}>{post.data.title}</a>
+        </h2>
+        <p class="post-excerpt">{post.data.excerpt}</p>
+      </article>
+    ))}
+    <div class="post-list-end"></div>
+  </div>
+</Base>

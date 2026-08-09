@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+
+// No live camera wired up yet — swap this for real state (and a <video>/embed
+// in place of .turtle-screen) once the feed exists.
+const isLive = true;
+---
+
+<Base
+  title="Turtle Cam — Junusais quoi"
+  description="A live view of the tank. Refreshes on its own; no need to reload."
+>
+  <div class="page-head">
+    <h1>Turtle Cam</h1>
+    <p>A live view of the tank. Refreshes on its own; no need to reload.</p>
+  </div>
+
+  <div class="turtle-screen">
+    <span class={`tag live-pill ${isLive ? 'tag-accent' : 'tag-neutral'}`}>
+      {isLive ? 'LIVE' : 'OFFLINE'}
+    </span>
+    <span class="placeholder-text">Live feed placeholder</span>
+  </div>
+
+  <div class="turtle-stats">
+    <span class="tag tag-outline">78°F</span>
+    <span class="tag tag-outline">Last fed: today</span>
+    <span class="tag tag-outline">Water: clear</span>
+  </div>
+
+  <p class="turtle-caption">
+    No camera hooked up yet — this is a placeholder. Once the feed is live, this box becomes a
+    real stream and the stats above update on their own.
+  </p>
+</Base>
