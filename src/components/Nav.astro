@@ -1,0 +1,39 @@
+---
+interface Props {
+  currentPath: string;
+}
+const { currentPath } = Astro.props;
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/writing', label: 'Writing' },
+  { href: '/portfolio', label: 'Portfolio' },
+  { href: '/turtle-cam', label: 'Turtle Cam' },
+];
+
+const isCurrent = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+
+<header class="site-header">
+  <a class="wordmark" href="/">Junusais quoi</a>
+
+  <nav class="site-nav" aria-label="Primary">
+    {links.map((link) => (
+      <a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+        {link.label}
+      </a>
+    ))}
+  </nav>
+
+  <details class="nav-toggle">
+    <summary aria-label="Open menu">Menu</summary>
+    <nav aria-label="Primary (mobile)">
+      {links.map((link) => (
+        <a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+          {link.label}
+        </a>
+      ))}
+    </nav>
+  </details>
+</header>

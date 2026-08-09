@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) =>
+  a.slug.localeCompare(b.slug)
+);
+---
+
+<Base
+  title="Portfolio — Junusais quoi"
+  description="Data engineering work — pipelines, infrastructure, and dashboards."
+>
+  <div class="page-head">
+    <h1>Portfolio</h1>
+    <p>Data engineering work — pipelines, infrastructure, and dashboards.</p>
+  </div>
+
+  <div class="project-list">
+    {projects.map((project) => (
+      <article class="project-row">
+        <div class="project-thumb">Screenshot placeholder</div>
+        <div>
+          <span class="card-kicker">{project.data.kicker}</span>
+          <h2 class="project-title">
+            {project.data.link ? (
+              <a href={project.data.link}>{project.data.title}</a>
+            ) : (
+              project.data.title
+            )}
+          </h2>
+          <p class="project-body">{project.data.body}</p>
+          <span class="tag tag-accent">{project.data.tag}</span>
+        </div>
+      </article>
+    ))}
+    <div class="project-list-end"></div>
+  </div>
+</Base>
