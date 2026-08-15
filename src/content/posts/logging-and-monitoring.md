@@ -1,7 +1,7 @@
 ---
 title: "Logging and Monitoring"
 date: 2026-08-14
-tag: work
+tag: "data engineering"
 excerpt: "TODO: excerpt."
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "LLM-assisted Data Platforms development"
 date: 2026-08-14
-tag: work
+tag: "data engineering"
 excerpt: "TODO: excerpt."
 ---
 
