@@ -2,9 +2,11 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 
-const posts = (await getCollection('posts')).sort(
+const allPosts = (await getCollection('posts')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
+const writingPosts = allPosts.filter((post) => post.data.category === 'writing');
+const portfolioPosts = allPosts.filter((post) => post.data.category === 'portfolio');
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', {
   month: 'short',
@@ -19,19 +21,49 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', {
     <p>Life stuff. What I'm up to, or thinking about.</p>
   </div>
 
-  <div class="post-list">
-    {posts.map((post) => (
-      <article class="post-list-row">
-        <div class="post-meta">
-          <span class="post-date">{dateFormatter.format(post.data.date)}</span>
-          <span class="tag tag-outline">{post.data.tag}</span>
-        </div>
-        <h2 class="post-title">
-          <a href={`/writing/${post.slug}`}>{post.data.title}</a>
-        </h2>
-        <p class="post-excerpt">{post.data.excerpt}</p>
-      </article>
-    ))}
-    <div class="post-list-end"></div>
+  <div class="tabs">
+    <input type="radio" name="post-tab" id="tab-writing" class="tab-input" checked />
+    <input type="radio" name="post-tab" id="tab-portfolio" class="tab-input" />
+
+    <div class="tab-labels">
+      <label for="tab-writing" class="tab-label">Writing</label>
+      <label for="tab-portfolio" class="tab-label">Portfolio</label>
+    </div>
+
+    <div class="tab-panel" data-panel="writing">
+      <div class="post-list">
+        {writingPosts.map((post) => (
+          <article class="post-list-row">
+            <div class="post-meta">
+              <span class="post-date">{dateFormatter.format(post.data.date)}</span>
+              <span class="tag tag-outline">{post.data.tag}</span>
+            </div>
+            <h2 class="post-title">
+              <a href={`/writing/${post.slug}`}>{post.data.title}</a>
+            </h2>
+            <p class="post-excerpt">{post.data.excerpt}</p>
+          </article>
+        ))}
+        <div class="post-list-end"></div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-panel="portfolio">
+      <div class="post-list">
+        {portfolioPosts.map((post) => (
+          <article class="post-list-row">
+            <div class="post-meta">
+              <span class="post-date">{dateFormatter.format(post.data.date)}</span>
+              <span class="tag tag-accent">{post.data.tag}</span>
+            </div>
+            <h2 class="post-title">
+              <a href={post.data.link ?? `/writing/${post.slug}`}>{post.data.title}</a>
+            </h2>
+            <p class="post-excerpt">{post.data.excerpt}</p>
+          </article>
+        ))}
+        <div class="post-list-end"></div>
+      </div>
+    </div>
   </div>
 </Base>

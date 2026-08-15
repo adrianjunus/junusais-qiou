@@ -7,18 +7,9 @@ const posts = defineCollection({
     date: z.date(),
     tag: z.string(),
     excerpt: z.string(),
-  }),
-});
-
-const projects = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    kicker: z.string(),
-    tag: z.string(),
-    body: z.string(),
+    category: z.enum(['writing', 'portfolio']).default('writing'),
     link: z.string().url().optional(),
   }),
 });
 
-export const collections = { posts, projects };
+export const collections = { posts };

@@ -24,9 +24,13 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', {
   <article>
     <div class="post-meta">
       <span class="post-date">{dateFormatter.format(post.data.date)}</span>
+      {post.data.category === 'portfolio' && <span class="tag tag-accent">Portfolio</span>}
       <span class="tag tag-outline">{post.data.tag}</span>
     </div>
     <h1 class="post-detail-title">{post.data.title}</h1>
+    {post.data.link && (
+      <p><a href={post.data.link}>View on GitHub ↗</a></p>
+    )}
     <div class="post-body">
       <Content />
     </div>

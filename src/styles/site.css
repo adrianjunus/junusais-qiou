@@ -91,7 +91,7 @@
   }
 }
 
-/* — page head (shared by writing / portfolio / turtle-cam) — */
+/* — page head (shared by writing / turtle-cam) — */
 .page-head h1 { font-size: clamp(32px, 4.5vw, 46px); margin: 0 0 10px; }
 .page-head p {
   font-size: 16px;
@@ -171,41 +171,36 @@
 .post-body { font-size: 16px; line-height: 1.7; margin-top: 28px; }
 .post-body p { margin: 0 0 var(--space-4); }
 
-/* — portfolio index — */
-.project-list { display: flex; flex-direction: column; gap: 2px; }
-.project-row {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 24px;
-  padding: 28px 0;
-  border-top: 2px solid var(--color-divider);
-  align-items: start;
+/* — writing / portfolio tabs — */
+.tab-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
-.project-list-end { border-top: 2px solid var(--color-divider); }
-.project-thumb {
-  aspect-ratio: 4 / 3;
-  background: var(--color-surface);
-  border: 1px dashed var(--color-divider);
+.tab-labels {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  text-align: center;
-  color: color-mix(in srgb, var(--color-text) 50%, transparent);
+  gap: 4px;
+  margin-bottom: 8px;
 }
-.project-title { font-size: 22px; margin: 6px 0 8px; }
-.project-body {
-  font-size: 15px;
-  line-height: 1.6;
-  margin: 0 0 14px;
-  max-width: 56ch;
-  color: color-mix(in srgb, var(--color-text) 78%, transparent);
+.tab-label {
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 8px 16px;
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+  border-bottom: 2px solid transparent;
 }
-@media (max-width: 640px) {
-  .project-row { grid-template-columns: 1fr; }
-  .project-thumb { max-width: 220px; }
+.tab-label:hover { color: var(--color-text); }
+.tab-panel { display: none; }
+#tab-writing:checked ~ .tab-labels label[for='tab-writing'],
+#tab-portfolio:checked ~ .tab-labels label[for='tab-portfolio'] {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+#tab-writing:checked ~ [data-panel='writing'],
+#tab-portfolio:checked ~ [data-panel='portfolio'] {
+  display: block;
 }
 
 /* — turtle cam — */
