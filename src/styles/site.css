@@ -91,7 +91,7 @@
   }
 }
 
-/* — page head (shared by writing / turtle-cam) — */
+/* — page head (shared by posts / turtle-cam) — */
 .page-head h1 { font-size: clamp(32px, 4.5vw, 46px); margin: 0 0 10px; }
 .page-head p {
   font-size: 16px;
@@ -136,7 +136,7 @@
   pointer-events: none;
 }
 
-/* — writing index — */
+/* — posts index — */
 .post-list { display: flex; flex-direction: column; }
 .post-list-row {
   padding: 26px 0;
@@ -166,7 +166,7 @@
   color: color-mix(in srgb, var(--color-text) 78%, transparent);
 }
 
-/* — writing detail — */
+/* — posts detail — */
 .post-detail-title { font-size: clamp(32px, 4.5vw, 46px); margin: 0 0 14px; }
 .post-body { font-size: 16px; line-height: 1.7; margin-top: 28px; }
 .post-body p { margin: 0 0 var(--space-4); }

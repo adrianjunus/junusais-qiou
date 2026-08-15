@@ -15,9 +15,9 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', {
 });
 ---
 
-<Base title="Writing — Junusais quoi" description="Life stuff. What I'm up to, or thinking about.">
+<Base title="Posts — Junusais quoi" description="Life stuff. What I'm up to, or thinking about.">
   <div class="page-head">
-    <h1>Writing</h1>
+    <h1>Posts</h1>
     <p>Life stuff. What I'm up to, or thinking about.</p>
   </div>
 
@@ -39,7 +39,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', {
               <span class="tag tag-outline">{post.data.tag}</span>
             </div>
             <h2 class="post-title">
-              <a href={`/writing/${post.slug}`}>{post.data.title}</a>
+              <a href={`/posts/${post.slug}`}>{post.data.title}</a>
             </h2>
             <p class="post-excerpt">{post.data.excerpt}</p>
           </article>
@@ -57,7 +57,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', {
               <span class="tag tag-accent">{post.data.tag}</span>
             </div>
             <h2 class="post-title">
-              <a href={post.data.link ?? `/writing/${post.slug}`}>{post.data.title}</a>
+              <a href={post.data.link ?? `/posts/${post.slug}`}>{post.data.title}</a>
             </h2>
             <p class="post-excerpt">{post.data.excerpt}</p>
           </article>
