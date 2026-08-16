@@ -9,6 +9,7 @@ const posts = defineCollection({
     excerpt: z.string(),
     category: z.enum(['writing', 'portfolio']).default('writing'),
     link: z.string().url().optional(),
+    draft: z.boolean().default(false),
   }),
 });
 

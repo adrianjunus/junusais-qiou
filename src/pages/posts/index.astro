@@ -5,8 +5,11 @@ import Base from '../../layouts/Base.astro';
 const allPosts = (await getCollection('posts')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
-const writingPosts = allPosts.filter((post) => post.data.category === 'writing');
+const writingPosts = allPosts.filter((post) => post.data.category === 'writing' && !post.data.draft);
 const portfolioPosts = allPosts.filter((post) => post.data.category === 'portfolio');
+const plannedTopics = allPosts
+  .filter((post) => post.data.category === 'writing' && post.data.draft)
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', {
   month: 'short',
@@ -18,7 +21,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', {
 <Base title="Posts — Junusais quoi" description="Life stuff. What I'm up to, or thinking about.">
   <div class="page-head">
     <h1>Posts</h1>
-    <p>Life stuff. What I'm up to, or thinking about.</p>
+    <p>Life stuff. What I'm up to, or thinking about. Or just thing's that I want to write down so I don't forget.</p>
   </div>
 
   <div class="tabs">
@@ -46,6 +49,18 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', {
         ))}
         <div class="post-list-end"></div>
       </div>
+
+      {plannedTopics.length > 0 && (
+        <div class="planned-topics card">
+          <p class="card-kicker">On the list</p>
+          <p class="planned-topics-intro">Topics I'm planning to write about next:</p>
+          <ul class="planned-topics-list">
+            {plannedTopics.map((post) => (
+              <li>{post.data.title}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
 
     <div class="tab-panel" data-panel="portfolio">
