@@ -53,12 +53,35 @@ docker run -d --name mediamtx --restart unless-stopped \
 This serves HLS at `http://localhost:8888/turtle/index.m3u8`. Confirm it works locally (VLC or
 `ffplay`) before moving on.
 
+**On Windows without Docker Desktop** (e.g. virtualization/WSL2 unavailable on the host — Docker
+Desktop needs VT-x/AMD-V exposed to Windows, which isn't always on by default on a given machine):
+run the native binary instead, in PowerShell.
+
+```powershell
+mkdir C:\mediamtx
+cd C:\mediamtx
+Invoke-WebRequest -Uri "https://github.com/bluenviron/mediamtx/releases/download/v1.20.1/mediamtx_v1.20.1_windows_amd64.zip" -OutFile mediamtx.zip
+Expand-Archive mediamtx.zip -DestinationPath .
+# edit mediamtx.yml to the paths.turtle.source block above, then test manually:
+.\mediamtx.exe .\mediamtx.yml
+```
+
+Once that works, wrap it as a real Windows service with [NSSM](https://nssm.cc/download) so it
+survives reboot/logout (needs an elevated "Run as Administrator" PowerShell window):
+
+```powershell
+.\nssm.exe install mediamtx "C:\mediamtx\mediamtx.exe" "C:\mediamtx\mediamtx.yml"
+.\nssm.exe set mediamtx AppDirectory C:\mediamtx
+.\nssm.exe set mediamtx Start SERVICE_AUTO_START
+.\nssm.exe start mediamtx
+```
+
 ## 3. Expose it with a Cloudflare Tunnel
 
 Requires a domain added to Cloudflare (free tier is fine).
 
 ```sh
-brew install cloudflared        # or the Linux/Pi package for your distro
+brew install cloudflared        # or the Linux/Pi package for your distro; winget on Windows
 cloudflared tunnel login
 cloudflared tunnel create turtle-cam
 cloudflared tunnel route dns turtle-cam turtle.yourdomain.com
@@ -81,6 +104,24 @@ Run it, then install as a service so it survives reboots:
 cloudflared tunnel run turtle-cam
 cloudflared service install   # systemd on Linux/Pi, launchd on macOS
 ```
+
+**On Windows**, in PowerShell:
+
+```powershell
+winget install --id Cloudflare.cloudflared
+cloudflared.exe tunnel login
+cloudflared.exe tunnel create turtle-cam
+cloudflared.exe tunnel route dns turtle-cam turtle.yourdomain.com
+```
+
+Config file goes at `$env:USERPROFILE\.cloudflared\config.yml`, same contents as above. Two
+Windows-specific gotchas:
+
+- `--config` is a *global* flag on `cloudflared.exe` — it must come **before** the subcommand:
+  `cloudflared.exe --config $env:USERPROFILE\.cloudflared\config.yml tunnel run`, not after `tunnel`.
+- `cloudflared.exe --config "$env:USERPROFILE\.cloudflared\config.yml" service install` registers
+  a Windows service via the Service Control Manager, so it needs an elevated ("Run as
+  Administrator") PowerShell window or it fails with access denied.
 
 Camera credentials never leave this machine — the public URL only ever serves the remuxed
 video, not the RTSP source or its auth.
