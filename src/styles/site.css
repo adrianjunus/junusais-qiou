@@ -229,11 +229,17 @@
   justify-content: center;
   margin-bottom: 16px;
 }
-.turtle-screen .live-pill { position: absolute; top: 14px; left: 14px; }
+.turtle-screen .live-pill { position: absolute; top: 14px; right: 14px; z-index: 1; }
 .turtle-screen .placeholder-text {
   color: var(--color-neutral-500);
   font-size: 13px;
   letter-spacing: 0.04em;
+}
+.turtle-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
 }
 .turtle-stats {
   display: flex;
