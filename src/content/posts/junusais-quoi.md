@@ -4,7 +4,7 @@ date: 2026-08-23
 tag: "personal site"
 category: portfolio
 link: "https://github.com/adrianjunus/junusais-qiou"
-excerpt: "This site — an Astro static build with a Markdown blog and portfolio via content collections, plus a turtle-cam page streaming a live Tapo camera over HLS. The camera feed runs through MediaMTX (RTSP→HLS) and a Cloudflare Tunnel on a separate always-on machine, with no exposed home IP or port forwarding."
+excerpt: "(Claude-generated placeholder.) This site — an Astro static build with a Markdown blog and portfolio via content collections, plus a turtle-cam page streaming a live Tapo camera over HLS. The camera feed runs through MediaMTX (RTSP→HLS) and a Cloudflare Tunnel on a separate always-on machine, with no exposed home IP or port forwarding."
 ---
 *(Placeholder description — Claude-generated for now, until I go through and flesh this out myself.)*
 
