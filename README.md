@@ -31,17 +31,19 @@ Push to `main` and it's live — no admin UI.
 
 ## Add a portfolio item
 
-Add a Markdown file to `src/content/projects/` (prefix the filename with a number to control
-its position, e.g. `03-next-thing.md`):
+Portfolio items are posts, not a separate collection. Add a Markdown file to `src/content/posts/`
+with `category: portfolio`:
 
 ```md
 ---
 title: "Project title"
-kicker: "Code · GitHub"
-tag: "data engineering"
-body: "One or two sentences describing the project."
+date: 2026-08-04
+tag: "data engineering"   # free text, shown as a small pill
+category: portfolio
 link: "https://github.com/you/repo"   # optional
+excerpt: "One or two sentences describing the project."
 ---
+Full body in Markdown (shown on the post's own page; the excerpt is what's shown in the list).
 ```
 
 ## Build & deploy
